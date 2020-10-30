@@ -26,7 +26,7 @@ public class TestClass {
     public void seleniumTest() {
 
         driver.get("http://127.0.0.1:8189/geekmarket/shop/");
-        String link ="/geekmarket/shop/cart/add/7";
+
         for (int i=0 ;i<3;i++){
         WebElement webElement = driver.findElement(By.cssSelector("a.btn.btn-primary"));
         webElement.click();
@@ -34,10 +34,21 @@ public class TestClass {
 
         driver.get("http://127.0.0.1:8189/geekmarket/cart/");
 
+        List<WebElement> webElementRow = driver
+                .findElement(By.cssSelector(".product_line"))
+                .findElements(By.cssSelector(".product_count"));
+        //List<WebElement> webElementRow = driver.findElements(By.cssSelector(".product_title"));
+        //List<WebElement> webElementRow = driver.findElements(By.tagName("tr"));
+        for (WebElement obj: webElementRow) {
+            String count = obj.getText();
+            System.out.println(count);
+        }
 
-        List<WebElement> webElementRow = driver.findElements(By.tagName("tr"));
-        //List<WebElement> webElementRow2 = driver.findElements(By.cssSelector("product-title"));
-
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         int rowCount = webElementRow.size();
 
         Assert.assertTrue(rowCount>0);
